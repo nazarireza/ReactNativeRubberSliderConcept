@@ -1,4 +1,4 @@
-export const CANVAS_HEIGHT = 100;
+export const CANVAS_HEIGHT = 50;
 export const INDICATOR_SIZE = 25;
 export const CANVAS_ZOOM_RATE = 0.5;
 export const LINE_STROKE_MAX_WIDTH = 6;

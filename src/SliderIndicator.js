@@ -11,7 +11,6 @@ import Animated, {
   set,
   clockRunning,
   Easing,
-  interpolate,
   color,
 } from 'react-native-reanimated';
 import {
@@ -50,7 +49,7 @@ export default ({initialX, minX, maxX, x, y, state}) => {
             set(
               y,
               max(
-                0,
+                -(INDICATOR_SIZE - LINE_STROKE_MAX_WIDTH) / 2,
                 min(
                   add(Y, translationY),
                   CANVAS_HEIGHT - (INDICATOR_SIZE + LINE_STROKE_MAX_WIDTH) / 2,
@@ -68,8 +67,8 @@ export default ({initialX, minX, maxX, x, y, state}) => {
                   clock: springClock,
                   from: yT,
                   to: Y,
-                  duration: 450,
-                  easing: Easing.in(Easing.elastic(2)),
+                  duration: 350,
+                  easing: Easing.elastic(3),
                 }),
               ),
               cond(

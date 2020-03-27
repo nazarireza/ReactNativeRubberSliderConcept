@@ -2,16 +2,22 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 import Slider from './Slider';
+import {useValues, ReText} from 'react-native-redash';
+import {concat, sub} from 'react-native-reanimated';
 
 export default () => {
+  const [start, end] = useValues([0, 0], []);
+  const selectedRangeText = concat('$', start, ' - $', end);
+  const currentRangeText = concat('Current Range: $', sub(end, start));
+
   return (
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.canvasContainer}>
           <Text style={styles.titleText}>Price Range</Text>
-          <Text style={styles.valueRangeText}>{`$1800 - $7900`}</Text>
-          <Text style={styles.currentValueText}>{`Current Range: $4423`}</Text>
-          <Slider />
+          <ReText style={styles.valueRangeText} text={selectedRangeText} />
+          <ReText style={styles.currentValueText} text={currentRangeText} />
+          <Slider max={500} {...{start, end}} />
         </View>
       </SafeAreaView>
     </>
@@ -31,6 +37,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 35,
     paddingVertical: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
   },
   titleText: {
     fontSize: 32,

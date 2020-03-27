@@ -11,6 +11,9 @@ import {
   useCode,
   block,
   and,
+  multiply,
+  divide,
+  round,
 } from 'react-native-reanimated';
 import {useValues} from 'react-native-redash';
 import {Svg} from 'react-native-svg';
@@ -25,7 +28,7 @@ import SliderLine from './SliderLine';
 import SliderIndicator from './SliderIndicator';
 import {State} from 'react-native-gesture-handler';
 
-export default () => {
+export default ({max, start, end}) => {
   const [elementDimension, setElementDimension] = useState({
     width: -1,
     height: -1,
@@ -67,8 +70,28 @@ export default () => {
           ),
           set(leftIndicatorX, sub(rightIndicatorX, INDICATOR_SIZE)),
         ),
+        [
+          set(
+            start,
+            round(
+              divide(
+                multiply(add(leftIndicatorX, INDICATOR_SIZE / 2), max),
+                elementDimension.width,
+              ),
+            ),
+          ),
+          set(
+            end,
+            round(
+              divide(
+                multiply(add(rightIndicatorX, INDICATOR_SIZE / 2), max),
+                elementDimension.width,
+              ),
+            ),
+          ),
+        ],
       ]),
-    [],
+    [elementDimension],
   );
 
   return (
